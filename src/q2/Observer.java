@@ -1,4 +1,4 @@
-package q2;
+package Q2;
 
 public interface Observer {
 	public void update(Observable o);

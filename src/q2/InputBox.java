@@ -1,4 +1,4 @@
-package q2;
+package Q2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -85,9 +85,9 @@ public class InputBox implements Observable,KeyListener{
 
 	// KeyListener Implementation
 	/**
-	 * will handle the event that happend in the text field.
+	 * will handle the event that happen in the text field.
 	 * if an enter was pressed - this will initiate the new message handling method
-	 * @param the event that happend in the text field
+	 * @param event that happen in the text field
 	 */
 	@Override
 	public void keyPressed(KeyEvent event) {
@@ -119,7 +119,7 @@ public class InputBox implements Observable,KeyListener{
 	}
 	/**
 	 * this method will add a new observer
-	 * @param the observer to be added 
+	 * @param o will be added by the observer
 	 */
 	@Override
 	public void attach(Observer o) {
@@ -130,7 +130,7 @@ public class InputBox implements Observable,KeyListener{
 	
 	/**
 	 * this method will remove a observer
-	 * @param the observer to be removed 
+	 * @param  o will be removed by the observer
 	 */
 	@Override
 	public void detach(Observer o) {

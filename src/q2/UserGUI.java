@@ -12,7 +12,7 @@
  *  input1-3 - the input panels
  *  discussion1-3 - the output chat boxes
  */
-package q2;
+package Q2;
 
 import javax.swing.*;
 

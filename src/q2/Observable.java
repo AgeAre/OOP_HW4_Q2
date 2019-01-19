@@ -1,4 +1,5 @@
-package q2;
+package Q2;
+
 
 public interface Observable {
 	public void notifyObservers();

@@ -1,4 +1,4 @@
-package q2;
+package Q2;
 
 import java.awt.Color;
 import java.awt.Font;
