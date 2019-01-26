@@ -10,7 +10,7 @@ import javax.swing.JTextField;
  * Abstraction function:
  * InputBox wraps a text field in which the user will be able to type his messages
  * which will later appear in the chat window.
- * This class wraps the text field with chat-like functionallity (such as responding to enter presses)
+ * This class wraps the text field with chat-like functionality (such as responding to enter presses)
  * and notifies the chat boxes when a new message is ready.
  * 
  * String name - the name of the User (which will be added to the messages he types)
@@ -22,19 +22,19 @@ import javax.swing.JTextField;
  * Representation invariant:
  * all fields != null
  */
-public class InputBox implements Observable,KeyListener{
+public class InputBox implements Observable, KeyListener{
 	private	String name;
 	private List<Observer> Observers;
 	private JTextField textField;
 	private String currentMessage;
 	
 	/**
-	 * @requires all params != null && name doesnt contain ':'
+	 * @requires all params != null && name doesn't contain ':'
 	 * @param name - the name of the user
 	 * @param observersToAdd - the chat boxes in the system that observe this chat
 	 * @return a new InputBox object
 	 */
-	public InputBox(String name,List<Observer> observersToAdd){
+	public InputBox(String name, List<Observer> observersToAdd){
 		this.name = name;
 		this.Observers = new ArrayList<>(observersToAdd);
 		this.textField = new JTextField();
@@ -117,6 +117,7 @@ public class InputBox implements Observable,KeyListener{
 		}
 		checkRep();
 	}
+
 	/**
 	 * this method will add a new observer
 	 * @param o will be added by the observer
@@ -127,7 +128,8 @@ public class InputBox implements Observable,KeyListener{
 		this.Observers.add(o);
 		checkRep();
 	}
-	
+
+
 	/**
 	 * this method will remove a observer
 	 * @param  o will be removed by the observer

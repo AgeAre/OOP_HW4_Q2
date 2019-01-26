@@ -114,11 +114,11 @@ public class ChatBox implements Observer {
 		// add the new message to the list of messages
 		this.messages.add(messageToAdd);
 		// add the new message to the chat pane
-		// check if the new message is from our user. if it is - color it black, otherwise - color it blue.
+		// check if the new message is from our user. if it is - color it black, otherwise - color it in green.
 		if(name.equals(this.name)){
 			StyleConstants.setForeground(this.style, Color.black);
 		}else{
-			StyleConstants.setForeground(this.style, Color.blue);
+			StyleConstants.setForeground(this.style, Color.GREEN.darker());
 		}
 		try {
 			this.doc.insertString(doc.getLength(), messageToAdd, this.style);
@@ -142,7 +142,7 @@ public class ChatBox implements Observer {
 		}
 		
 		// we need to change the style of the existing messages, and to also change the
-		// style so that future messages will be added with the right stlye
+		// style so that future messages will be added with the right style
 		// check what font was required
 		if(o.getName().equals("Bold")){
 			
@@ -178,8 +178,8 @@ public class ChatBox implements Observer {
 				// this message is from our user. should be painted black
 				StyleConstants.setForeground(this.style, Color.black);
 			}else{
-				// this message is not from our user. should be painted blue
-				StyleConstants.setForeground(this.style, Color.blue);
+				// this message is not from our user. should be painted in green
+				StyleConstants.setForeground(this.style, Color.GREEN.darker());
 			}
 			// redraw the message
 			try {

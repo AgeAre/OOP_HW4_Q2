@@ -23,7 +23,7 @@ import java.util.List;
  * This is the UI implementation for the chat prototype.
  * The visual speaks for itself. Functionality:
  * Input boxes that get input text line and send it via Enter to all of the Discussions.
- * The students own chat discussion window has his text in black and others in blue.
+ * The students own chat discussion window has his text in black and others in green.
  * There is a method to toggle, bold, other font, or standard font. 
  */
 public class UserGUI  extends JPanel {
@@ -35,13 +35,13 @@ public class UserGUI  extends JPanel {
   private  String userName1 = "Student1";
   private  String userName2 = "Student2";
   private  String userName3 = "Student3";
-  
- 
+
+  // Allows the editing of a single line of text
   private  JTextField input1;
   private  JTextField input2;
   private  JTextField input3;
   
-  
+  // Buttons
   private  JButton btnDefault1    ;
   private  JButton btnDavid1      ;
   private  JButton btnBold1       ;
@@ -70,7 +70,7 @@ public class UserGUI  extends JPanel {
 		ChatBox chat2 = new ChatBox(userName2);
 		ChatBox chat3 = new ChatBox(userName3);
 		
-		// add all observers to one list for the obeserver design pattern implementation
+		// add all observers to one list for the observer design pattern implementation
 		ArrayList<Observer> chatBoxes = new ArrayList<>();
 		chatBoxes.add(chat1);
 		chatBoxes.add(chat2);
@@ -91,7 +91,7 @@ public class UserGUI  extends JPanel {
 		btnDefault3  = new JButton("Default"); 
 		btnBold3      = new JButton("Bold");    
 		btnDavid3    = new JButton("David"); 
-		
+
 		//FBL is short for FontButtonListener
 		FontButtonListener FBLDefault1 = new FontButtonListener("Default",userName1,btnDefault1,chatBoxes);
 		FontButtonListener FBLBold1 = new FontButtonListener("Bold",userName1,btnBold1,chatBoxes);
@@ -106,6 +106,7 @@ public class UserGUI  extends JPanel {
 		FontButtonListener FBLDefault3 = new FontButtonListener("Default",userName3,btnDefault3,chatBoxes);
 		FontButtonListener FBLBold3 = new FontButtonListener("Bold",userName3,btnBold3,chatBoxes);
 		FontButtonListener FBLDavid3 = new FontButtonListener("David",userName3,btnDavid3,chatBoxes);
+
 		// get the ref to the objects of the backend to show them
 		this.discussion1 = chat1.getChatPane();
 		this.discussion2 = chat2.getChatPane();
