@@ -13,20 +13,20 @@ import javax.swing.text.StyledDocument;
 
 /**
  * ChatBox represents a chat window in which the users chat
- * the chatBox will observe if new messages arrive at the InputBox of any of the users,
+ * the chatBox will observe if new messages arrive at the TextInput of any of the users,
  * and if there are new messages, he will add them to the chat pane.
  * the chatBox will also observe if any of the font buttons are clicked, and update
  * the font of the messages accordingly.
  * the chatBox will draw new messages with font dictated dynamiclly with a Style strategy object
- * 
+ *
  * name - the name of the user that the chat window belongs to
  * chatArea - the pane where the messages will be drawn
  * doc - the styled document of the pane
  * style - a strategy object which will determine in which font the next message will be drawn
  * messages - the existing messages in the chat so far
  * isBold - will keep if the messages are currently bolded or not
- * 
- * Representation Invariant: 
+ *
+ * Representation Invariant:
  * all fields != null
  * name doesn't contain ':'
  */
@@ -37,7 +37,7 @@ public class ChatBox implements Observer {
 	private Style style;
 	private List<String> messages; // keep all the messages and redraw them each time with a new style strategy.
 	private boolean isBold;
-	 
+
 	/**
 	 * @requires name doesn't contain ':'
 	 * @param name - the name of the user that the chat window belongs to
@@ -52,7 +52,7 @@ public class ChatBox implements Observer {
 		Style defaultStyle = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
 		this.style = defaultStyle;
 		this.messages = new ArrayList<>();
-		isBold = false;
+		isBold = Boolean.FALSE;
 		checkRep();
 	}
 
@@ -63,10 +63,10 @@ public class ChatBox implements Observer {
 		checkRep();
 		return this.chatArea;
 	}
-	
-	// Observer Implementation 
+
+	// Observer Implementation
 	/**
-	 * will receive notification from an observable (about either a new message to add or a new font to draw 
+	 * will receive notification from an observable (about either a new message to add or a new font to draw
 	 * the messages with) and handle it accordingly
 	 * @param o - the observable that notifies us.
 	 */
@@ -74,12 +74,12 @@ public class ChatBox implements Observer {
 	@Override
 	public void update(Observable o) { // TODO: delete this
 		checkRep();
-		// either an InputBox signaled us or a fontButton
+		// either an TextInput signaled us or a fontButton
 		// check who signaled us
-		if(o.getClass().equals(InputBox.class)){
-			// an InputBox has signaled us that there is a new message from one of the users.
+		if(o.getClass().equals(TextInput.class)){
+			// an TextInput has signaled us that there is a new message from one of the users.
 			// handle the new message
-			this.handleNewMessage((InputBox)o);
+			this.handleNewMessage((TextInput)o);
 		}
 		else{
 			// a fontButton signaled us we should change font
@@ -89,10 +89,10 @@ public class ChatBox implements Observer {
 	}
 
 	/**
-	 * will get the new message from the inputBox that has a new message, and add it to the chat window
-	 * @param o - the InputBox that has a new message
+	 * will get the new message from the TextInput that has a new message, and add it to the chat window
+	 * @param o - the TextInput that has a new message
 	 */
-	public void handleNewMessage(InputBox o){
+	public void handleNewMessage(TextInput o){
 		checkRep();
 		// get the message
 		String message = o.getCurrentMessage();
@@ -102,13 +102,13 @@ public class ChatBox implements Observer {
 		this.addNewMessage(message,name);
 		checkRep();
 	}
-	
+
 	/**
 	 * add a new message to the chat window
 	 * @param message - the message
-	 * @param name - the name of the user who wrote the message
+	 * @param userName - the name of the user who wrote the message
 	 */
-	private void addNewMessage(String message,String name){
+	private void addNewMessage(String message,String userName){
 		checkRep();
 		// form the message to be added
 		String messageToAdd = String.format("%s: %s\n", name,message);
@@ -128,7 +128,7 @@ public class ChatBox implements Observer {
 		}
 		checkRep();
 	}
-	
+
 	/**
 	 * will change the font of all the existing messages on the chat window according to the font requested
 	 * @param o - the listener of the font button that was pressed
@@ -141,27 +141,27 @@ public class ChatBox implements Observer {
 			checkRep();
 			return;
 		}
-		
+
 		// we need to change the style of the existing messages, and to also change the
 		// style so that future messages will be added with the right style
 		// check what font was required
 		if(o.getName().equals("Bold")){
-			
+
 			this.isBold = !this.isBold;
 			// change the used style
-			StyleConstants.setBold(this.style, this.isBold); 
+			StyleConstants.setBold(this.style, this.isBold);
 			// change the existing messages' style
 			this.redrawMessages();
 		}
-		else if(o.getName().equals("Default")){ 
-			StyleConstants.setBold(this.style, false); 
+		else if(o.getName().equals("Default")){
+			StyleConstants.setBold(this.style, false);
 			// change the existing messages' style
 			this.redrawMessages();
 			// change the font to Arial - the default font
-			chatArea.setFont(new Font("Arial", Font.PLAIN, 14));
+			chatArea.setFont(new Font("Arial", Font.PLAIN, 15));
 		}
-		else if(o.getName().equals("David")){
-			chatArea.setFont(new Font("David", Font.PLAIN, 14));
+		else if(o.getName().equals("Garamond")){
+			chatArea.setFont(new Font("Garamond", Font.PLAIN, 15));
 		}
 		checkRep();
 	}
@@ -191,10 +191,10 @@ public class ChatBox implements Observer {
 		}
 		checkRep();
 	}
-	
+
 	private void checkRep(){
-		assert this.name != null && 
-		this.chatArea != null && 
+		assert this.name != null &&
+		this.chatArea != null &&
 		this.doc != null &&
 		this.style != null &&
 		this.messages != null;

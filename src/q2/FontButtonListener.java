@@ -17,24 +17,24 @@ import javax.swing.JButton;
  * 
  * Representation Invariant:
  * all fields != null
- * name is either "Default","Bold" or "David"
+ * name is either "Default","Bold" or "Garmond"
  */
-public class FontButtonListener implements Observable,ActionListener{
-	private String name;
+public class FontButtonListener implements Observable, ActionListener{
 	private String userName;
+	private String fontName;
+	private JButton btn;
 	private List<Observer> observers;
-	private JButton button;
-	
+
 	/** 
 	 * returns a new FontButtonListener
 	 * @return a new FontButtonListener 
 	 */
-	public FontButtonListener(String name,String userName,JButton button,List<Observer> observers){
-		this.name = name;
+	public FontButtonListener(String fontName,String userName,JButton btn,List<Observer> observers){
 		this.userName = userName;
+		this.fontName = fontName;
+		this.btn = btn;
+		this.btn.addActionListener(this);
 		this.observers = new ArrayList<>(observers);
-		this.button = button;
-		this.button.addActionListener(this);
 		checkRep();
 	}
 	
@@ -43,7 +43,7 @@ public class FontButtonListener implements Observable,ActionListener{
 	 */
 	public String getName(){
 		checkRep();
-		return this.name;
+		return this.fontName;
 	}
 	
 	/**
@@ -98,14 +98,12 @@ public class FontButtonListener implements Observable,ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		checkRep();
-		// the font button was pressed
-		// lets notify all the observers
 		this.notifyObservers();
 		checkRep();
 	}
 	
 	private void checkRep(){
-		assert this.name != null && this.observers != null && this.button != null;
-		assert this.name.equals("Default") || this.name.equals("Bold") || this.name.equals("David");
+		assert this.fontName != null && this.observers != null && this.btn != null;
+		assert this.fontName.equals("Default") || this.fontName.equals("Bold") || this.fontName.equals("Garamond");
 	}
 }

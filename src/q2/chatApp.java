@@ -22,15 +22,15 @@
 //    @Override
 //    public void update(Observable o) {
 //        checkRep();
-//        // either an InputBox signaled us or a fontButton
+//        // either an TextInput signaled us or a fontButton
 //        // check who signaled us
 //        // iterate via "New way to loop"
 //        System.out.printf("check1");
 //        for (User currUser : usersList) {
-//            if (o.getClass().equals(InputBox.class)) {
-//                // an InputBox has signaled us that there is a new message from one of the users.
+//            if (o.getClass().equals(TextInput.class)) {
+//                // an TextInput has signaled us that there is a new message from one of the users.
 //                // handle the new message
-//                currUser.getChatBox().handleNewMessage((InputBox) o);
+//                currUser.getChatBox().handleNewMessage((TextInput) o);
 //            } else {
 //                // a fontButton signaled us we should change font
 //                currUser.getChatBox().changeFont((FontButtonListener) o);

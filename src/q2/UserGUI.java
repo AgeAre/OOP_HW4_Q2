@@ -26,342 +26,202 @@
 // * The students own chat discussion window has his text in black and others in green.
 // * There is a method to toggle, bold, other font, or standard font.
 // */
-//public class UserGUI  extends JPanel {
+//public class User extends JPanel {
 //
-//  private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 //
+//    private  String userName = "Write your message here:";
+//    private  ChatBox chatBox;
 //
-//
-//  private  String userName1 = "Student1";
-//  private  String userName2 = "Student2";
-//  private  String userName3 = "Student3";
+//    // Allows the editing of a single line of text
+//    private  JTextField input;
 //
-//  // Allows the editing of a single line of text
-//  private  JTextField input1;
-//  private  JTextField input2;
-//  private  JTextField input3;
+//    // Buttons
+//    private  JButton btnGaramond;
+//    private  JButton btnBold;
+//    private  JButton btnDefault;
 //
-//  // Buttons
-//  private  JButton btnDefault1    ;
-//  private  JButton btnDavid1      ;
-//  private  JButton btnBold1       ;
 //
-//  private  JButton btnDefault2    ;
-//  private  JButton btnDavid2      ;
-//  private  JButton btnBold2       ;
+//    // Display chat
+//    private  JTextPane chat;
 //
-//  private  JButton btnDefault3    ;
-//  private  JButton btnDavid3      ;
-//  private  JButton btnBold3       ;
 //
+//    /**
+//     * Creates a new GUI JPanel for the chat. containing the chat view and the input boxes.
+//     * @effects Creates a new GUI JPanel contained in frame.
+//     */
+//    public User(JFrame frame, String userName, ChatBox myChatBox, List<Observer> chatBoxesList){
+//        //init the backend
+//        this.chatBox = myChatBox;
 //
-//  private  JTextPane discussion1;
-//  private  JTextPane discussion2;
-//  private  JTextPane discussion3;
+//        // add all observers to one list for the observer design pattern implementation
+//        TextInput box = new TextInput(userName,chatBoxesList);
+//
+//        btnGaramond = new JButton("Garamond");
+//        btnBold     = new JButton("Bold");
+//        btnDefault  = new JButton("Default");
+//
+//        //FBL is short for FontButtonListener
+//        FontButtonListener FBLGaramond =   new FontButtonListener("Garamond"  ,userName, btnGaramond,chatBoxesList);
+//        FontButtonListener FBLBold =    new FontButtonListener("Bold"   ,userName,btnBold   ,chatBoxesList);
+//        FontButtonListener FBLDefault = new FontButtonListener("Default",userName,btnDefault,chatBoxesList);
 //
 //
-//  /**
-//	 * Creates a new GUI JPanel for the chat. containing the chat view and the input boxes.
-//	 * @effects Creates a new GUI JPanel contained in frame.
-//    */
-//  public UserGUI(JFrame frame){
-//		//init the backend
-//		ChatBox chat1 = new ChatBox(userName1);
-//		ChatBox chat2 = new ChatBox(userName2);
-//		ChatBox chat3 = new ChatBox(userName3);
+//
+//        // get the ref to the objects of the backend to show them
+//        this.chat = this.chatBox.getChatPane();
 //
-//		// add all observers to one list for the observer design pattern implementation
-//		ArrayList<Observer> chatBoxes = new ArrayList<>();
-//		chatBoxes.add(chat1);
-//		chatBoxes.add(chat2);
-//		chatBoxes.add(chat3);
-//		InputBox box1 = new InputBox(userName1,chatBoxes);
-//		InputBox box2 = new InputBox(userName2,chatBoxes);
-//		InputBox box3 = new InputBox(userName3,chatBoxes);
-//
-//		btnDefault1  = new JButton("Default");
-//		btnBold1     = new JButton("Bold");
-//		btnDavid1    = new JButton("David");
-//
-//		btnDefault2  = new JButton("Default");
-//		btnBold2     = new JButton("Bold");
-//		btnDavid2    = new JButton("David");
-//
-//
-//		btnDefault3  = new JButton("Default");
-//		btnBold3      = new JButton("Bold");
-//		btnDavid3    = new JButton("David");
-//
-//		//FBL is short for FontButtonListener
-//		FontButtonListener FBLDefault1 = new FontButtonListener("Default",userName1,btnDefault1,chatBoxes);
-//		FontButtonListener FBLBold1 = new FontButtonListener("Bold",userName1,btnBold1,chatBoxes);
-//		FontButtonListener FBLDavid1 = new FontButtonListener("David",userName1,btnDavid1,chatBoxes);
-//
-//		//FBL is short for FontButtonListener
-//		FontButtonListener FBLDefault2 = new FontButtonListener("Default",userName2,btnDefault2,chatBoxes);
-//		FontButtonListener FBLBold2 = new FontButtonListener("Bold",userName2,btnBold2,chatBoxes);
-//		FontButtonListener FBLDavid2 = new FontButtonListener("David",userName2,btnDavid2,chatBoxes);
-//
-//		//FBL is short for FontButtonListener
-//		FontButtonListener FBLDefault3 = new FontButtonListener("Default",userName3,btnDefault3,chatBoxes);
-//		FontButtonListener FBLBold3 = new FontButtonListener("Bold",userName3,btnBold3,chatBoxes);
-//		FontButtonListener FBLDavid3 = new FontButtonListener("David",userName3,btnDavid3,chatBoxes);
-//
-//		// get the ref to the objects of the backend to show them
-//		this.discussion1 = chat1.getChatPane();
-//		this.discussion2 = chat2.getChatPane();
-//		this.discussion3 = chat3.getChatPane();
-//
-//		this.input1 = box1.getInputTextField();
-//		this.input2 = box2.getInputTextField();
-//		this.input3 = box3.getInputTextField();
-//
-//		//view chat messages
-//
-//		// create the label and scroll bar
-//		discussion1.setEditable(false);
-//		JScrollPane scrldiscussion1 = new JScrollPane(discussion1);
-//		scrldiscussion1.setPreferredSize(new Dimension(400, 70));
-//		JLabel lbldiscussion1 = new JLabel("Discussion1: ");
-//		lbldiscussion1.setLabelFor(discussion1);
-//
-//
-//		discussion2.setEditable(false);
-//		JScrollPane scrldiscussion2 = new JScrollPane(discussion2);
-//		scrldiscussion2.setPreferredSize(new Dimension(400, 70));
-//		JLabel lbldiscussion2 = new JLabel("Discussion2: ");
-//		lbldiscussion2.setLabelFor(discussion2);
-//
-//
-//		discussion3.setEditable(false);
-//		JScrollPane scrldiscussion3 = new JScrollPane(discussion3);
-//		scrldiscussion3.setPreferredSize(new Dimension(400, 70));
-//		JLabel lbldiscussion3 = new JLabel("Discussion3: ");
-//		lbldiscussion3.setLabelFor(discussion3);
-//
-//
-//		// The box to Input a new chat message line
-//		JLabel lblinput1 = new JLabel(this.userName1);
-//		lblinput1.setLabelFor(lblinput1);
-//		input1.setEditable(true);
-//
-//		// The box to Input a new chat message line
-//		JLabel lblinput2 = new JLabel(this.userName2);
-//		lblinput2.setLabelFor(lblinput2);
-//		input2.setEditable(true);
-//		// button to send messages
-//
-//		// The box to Input a new chat message line
-//		JLabel lblinput3 = new JLabel(this.userName3);
-//		lblinput3.setLabelFor(lblinput3);
-//		input3.setEditable(true);
-//
-//
-//		// arrange components on grid
-//		this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-//		GridBagLayout gridbag = new GridBagLayout();
-//		GridBagConstraints c = new GridBagConstraints();
-//		this.setLayout(gridbag);
-//
-//		c.fill = GridBagConstraints.BOTH;
-//
-//		c.gridx = 1;
-//		c.gridy = 0;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lbldiscussion1, c);
-//		this.add(lbldiscussion1);
-//
-//		c.gridx = 1;
-//		c.gridy = 3;
-//		c.gridwidth = 2;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(scrldiscussion1, c);
-//		this.add(scrldiscussion1);
-//
-//		c.gridx = 3;
-//		c.gridy = 0;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lbldiscussion2, c);
-//		this.add(lbldiscussion2);
-//
-//		c.gridx = 3;
-//		c.gridy = 3;
-//		c.gridwidth = 2;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(scrldiscussion2, c);
-//		this.add(scrldiscussion2);
-//
-//		c.gridx = 5;
-//		c.gridy = 0;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lbldiscussion3, c);
-//		this.add(lbldiscussion3);
-//
-//		c.gridx = 5;
-//		c.gridy = 3;
-//		c.gridwidth = 2;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(scrldiscussion3, c);
-//		this.add(scrldiscussion3);
-//
-//		c.gridx = 1;
-//		c.gridy = 5;
-//		c.gridwidth = 3;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(input1, c);
-//		this.add(input1);
-//
-//		c.gridx = 1;
-//		c.gridy = 4;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lblinput1, c);
-//		this.add(lblinput1);
-//
-//		c.gridx = 4;
-//		c.gridy = 5;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDefault1, c);
-//		this.add(btnDefault1);
-//
-//
-//		c.gridx = 5;
-//		c.gridy = 5;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnBold1, c);
-//		this.add(btnBold1);
-//
-//
-//		c.gridx = 6;
-//		c.gridy = 5;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDavid1, c);
-//		this.add(btnDavid1);
-//
-//
-//		c.gridx = 1;
-//		c.gridy = 7;
-//		c.gridwidth = 3;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(input2, c);
-//		this.add(input2);
-//
-//		c.gridx = 1;
-//		c.gridy = 6;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lblinput2, c);
-//		this.add(lblinput2);
-//
-//
-//		c.gridx = 4;
-//		c.gridy = 7;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDefault2, c);
-//		this.add(btnDefault2);
-//
-//
-//		c.gridx = 5;
-//		c.gridy = 7;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnBold2, c);
-//		this.add(btnBold2);
-//
-//
-//		c.gridx = 6;
-//		c.gridy = 7;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDavid2, c);
-//		this.add(btnDavid2);
-//
-//
-//
-//		c.gridx = 1;
-//		c.gridy = 9;
-//		c.gridwidth = 3;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(input3, c);
-//		this.add(input3);
-//
-//		c.gridx = 1;
-//		c.gridy = 8;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,0,0);
-//		gridbag.setConstraints(lblinput3, c);
-//		this.add(lblinput3);
-//
-//		c.gridx = 4;
-//		c.gridy = 9;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDefault3, c);
-//		this.add(btnDefault3);
-//
-//
-//		c.gridx = 5;
-//		c.gridy = 9;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnBold3, c);
-//		this.add(btnBold3);
-//
-//
-//		c.gridx = 6;
-//		c.gridy = 9;
-//		c.gridwidth = 1;
-//		c.gridheight = 1;
-//		c.insets = new Insets(0,20,20,0);
-//		gridbag.setConstraints(btnDavid3, c);
-//		this.add(btnDavid3);
-//
-//
-//	}
-//
-//
-//
-//	/**
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//		JFrame frame = new JFrame("Chat GUI");
-//		Container contentPane = frame.getContentPane();
-//
-//		JPanel chat = new UserGUI(frame);
-//		contentPane.add(chat);
-//
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.pack();
-//		frame.setVisible(true);
-//
-//	}
-//
-//};
+//        this.input = box.getInputTextField();
+//
+//        // create the label and scroll bar
+//        chat.setEditable(false);
+//
+//        JScrollPane scrldiscussion = new JScrollPane(chat);
+//        scrldiscussion.setPreferredSize(new Dimension(400, 70));
+//
+//        JLabel lbldiscussion = new JLabel("Chat window: ");
+//        lbldiscussion.setLabelFor(chat);
+//
+//
+//        // The box to Input a new chat message line
+//        JLabel lblinput = new JLabel(this.userName);
+//        lblinput.setLabelFor(lblinput);
+//        input.setEditable(true);
+//
+//        // arrange components on grid
+//        this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+//        GridBagLayout gridbag = new GridBagLayout();
+//        GridBagConstraints c = new GridBagConstraints();
+//        this.setLayout(gridbag);
+//
+//        c.fill = GridBagConstraints.BOTH;
+//
+//        c.gridx = 1;
+//        c.gridy = 3;
+//        c.gridwidth = 2;
+//        c.gridheight = 1;
+//        c.insets = new Insets(0,20,20,0);
+//        gridbag.setConstraints(scrldiscussion, c);
+//        this.add(scrldiscussion);
+//
+//        c.gridx = 1;
+//        c.gridy = 0;
+//        c.gridwidth = 1;
+//        c.gridheight = 1;
+//        c.insets = new Insets(0,20,0,0);
+//        gridbag.setConstraints(lbldiscussion, c);
+//        this.add(lbldiscussion);
+//
+//        c.gridx = 1;
+//        c.gridy = 4;
+//        c.gridwidth = 1;
+//        c.gridheight = 1;
+//        c.insets = new Insets(0,20,0,0);
+//        gridbag.setConstraints(lblinput, c);
+//        this.add(lblinput);
+//
+//        c.gridx = 1;
+//        c.gridy = 5;
+//        c.gridwidth = 2;
+//        c.gridheight = 1;
+//        c.insets = new Insets(0,20,20,0);
+//        gridbag.setConstraints(input, c);
+//        this.add(input);
+//
+//
+//
+//        //-----------------------------
+//        //---------- Fonts ------------
+//        //-----------------------------
+//
+//        // Garamond button font
+//        c.gridx = 5;
+//        c.gridy = 7;
+//        c.gridwidth = 1;
+//        c.gridheight = 1;
+//        c.insets = new Insets(20,20,20,20);
+//        gridbag.setConstraints(btnGaramond, c);
+//        this.add(btnGaramond);
+//
+//        // Bold button font
+//        c.gridx = 2;
+//        c.gridy = 7;
+//        c.gridwidth = 1;
+//        c.gridheight = 1;
+//        c.insets = new Insets(20,20,20,20);
+//        gridbag.setConstraints(btnBold, c);
+//        this.add(btnBold);
+//
+//        // Default button font
+//        c.gridx = 1;
+//        c.gridy = 7;
+//        c.gridwidth = 1;
+//        c.gridheight = 1;
+//        c.insets = new Insets(20,20,20,20);
+//        gridbag.setConstraints(btnDefault, c);
+//        this.add(btnDefault);
+//
+//    }
+//
+//
+//    /**
+//     * @param args
+//     */
+//
+//    public static void main(String[] args) {
+//
+//        //---------------------
+//        //-------Users---------
+//        //---------------------
+//        String userName1 = "Student1";
+//        ChatBox chatBox1 = new ChatBox(userName1);
+//        JFrame frame1 = new JFrame(userName1);
+//        Container contentPane1 = frame1.getContentPane();
+//
+//        String userName2 = "Student2";
+//        ChatBox chatBox2 = new ChatBox(userName2);
+//        JFrame frame2 = new JFrame(userName2);
+//        Container contentPane2 = frame2.getContentPane();
+//
+//        String userName3 = "Student3";
+//        ChatBox chatBox3 = new ChatBox(userName3);
+//        JFrame frame3 = new JFrame(userName3);
+//        Container contentPane3 = frame3.getContentPane();
+//
+//
+//        List<Observer> chatBoxes = new ArrayList<>();
+//        chatBoxes.add(chatBox1);
+//        chatBoxes.add(chatBox2);
+//        chatBoxes.add(chatBox3);
+//
+//
+//        //---------------------
+//        //-------Chats---------
+//        //---------------------
+//        User chat1 = new User(frame1, userName1, chatBox1, chatBoxes);
+//        contentPane1.add(chat1);
+//        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame1.pack();
+//        frame1.setVisible(true);
+//
+//        User chat2 = new User(frame2, userName2, chatBox2, chatBoxes);
+//        contentPane2.add(chat2);
+//        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame2.pack();
+//        frame2.setVisible(true);
+//
+//        User chat3 = new User(frame3, userName3, chatBox3, chatBoxes);
+//        contentPane3.add(chat3);
+//        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame3.pack();
+//        frame3.setVisible(true);
+//
+//
+//        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//        frame1.setLocation(dim.width/2-frame1.getSize().width/2, dim.height/2-frame1.getSize().height/2);
+//        frame2.setLocation(0,0);
+//        frame3.setLocation(dim.width - frame3.getSize().width,0);
+//
+//    }
+//
+//}

@@ -5,7 +5,7 @@
  * Incredible personalization with state of the art style toggle of the text to bold,standard or other font.
  *
  * Representation Invariant:
- *   standard swing types , see swing for more detail 
+ *   standard swing types , see swing for more detail
  *
  * Abstraction function:
  *  userName1-3 - name of the persons chating
@@ -24,9 +24,9 @@ import java.util.List;
  * The visual speaks for itself. Functionality:
  * Input boxes that get input text line and send it via Enter to all of the Discussions.
  * The students own chat discussion window has his text in black and others in green.
- * There is a method to toggle, bold, other font, or standard font. 
+ * There is a method to toggle, bold, other font, or standard font.
  */
-public class User extends JPanel {
+public class ChatUserGui extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,49 +37,50 @@ public class User extends JPanel {
     private  JTextField input;
 
     // Buttons
-    private  JButton btnDefault;
-    private  JButton btnDavid;
+    private  JButton btnGaramond;
     private  JButton btnBold;
+    private  JButton btnDefault;
+
 
     // Display chat
-    private  JTextPane discussion;
+    private  JTextPane chat;
 
 
     /**
      * Creates a new GUI JPanel for the chat. containing the chat view and the input boxes.
      * @effects Creates a new GUI JPanel contained in frame.
      */
-    public User(JFrame frame, String userName, ChatBox myChatBox, List<Observer> chatBoxesList){ // TODO: Should I delete mine from the list?
+    public ChatUserGui(JFrame frame, String userName, ChatBox myChatBox, List<Observer> chatBoxesList){
         //init the backend
         this.chatBox = myChatBox;
 
         // add all observers to one list for the observer design pattern implementation
-        InputBox box = new InputBox(userName,chatBoxesList);
+        TextInput box = new TextInput(userName,chatBoxesList);
 
-        btnDefault  = new JButton("Default");
+        btnGaramond = new JButton("Garamond");
         btnBold     = new JButton("Bold");
-        btnDavid    = new JButton("David");
+        btnDefault  = new JButton("Default");
 
         //FBL is short for FontButtonListener
-        FontButtonListener FBLDefault = new FontButtonListener("Default",userName,btnDefault,chatBoxesList);
-        FontButtonListener FBLBold =    new FontButtonListener("Bold"   ,userName,btnBold   ,chatBoxesList);
-        FontButtonListener FBLDavid =   new FontButtonListener("David"  ,userName,btnDavid  ,chatBoxesList);
+        FontButtonListener FBLGaramond = new FontButtonListener("Garamond"  ,userName, btnGaramond,chatBoxesList);
+        FontButtonListener FBLBold =     new FontButtonListener("Bold"      ,userName,btnBold   ,chatBoxesList);
+        FontButtonListener FBLDefault =  new FontButtonListener("Default"   ,userName,btnDefault,chatBoxesList);
+
+
 
         // get the ref to the objects of the backend to show them
-        this.discussion = this.chatBox.getChatPane();
+        this.chat = this.chatBox.getChatPane();
 
         this.input = box.getInputTextField();
 
-        //view chat messages
-
         // create the label and scroll bar
-        discussion.setEditable(false);
+        chat.setEditable(false);
 
-        JScrollPane scrldiscussion = new JScrollPane(discussion);
+        JScrollPane scrldiscussion = new JScrollPane(chat);
         scrldiscussion.setPreferredSize(new Dimension(400, 70));
 
         JLabel lbldiscussion = new JLabel("Chat window: ");
-        lbldiscussion.setLabelFor(discussion);
+        lbldiscussion.setLabelFor(chat);
 
 
         // The box to Input a new chat message line
@@ -96,14 +97,6 @@ public class User extends JPanel {
         c.fill = GridBagConstraints.BOTH;
 
         c.gridx = 1;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.insets = new Insets(0,20,0,0);
-        gridbag.setConstraints(lbldiscussion, c);
-        this.add(lbldiscussion);
-
-        c.gridx = 1;
         c.gridy = 3;
         c.gridwidth = 2;
         c.gridheight = 1;
@@ -112,12 +105,12 @@ public class User extends JPanel {
         this.add(scrldiscussion);
 
         c.gridx = 1;
-        c.gridy = 5;
-        c.gridwidth = 2;
+        c.gridy = 0;
+        c.gridwidth = 1;
         c.gridheight = 1;
-        c.insets = new Insets(0,20,20,0);
-        gridbag.setConstraints(input, c);
-        this.add(input);
+        c.insets = new Insets(0,20,0,0);
+        gridbag.setConstraints(lbldiscussion, c);
+        this.add(lbldiscussion);
 
         c.gridx = 1;
         c.gridy = 4;
@@ -127,21 +120,30 @@ public class User extends JPanel {
         gridbag.setConstraints(lblinput, c);
         this.add(lblinput);
 
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridwidth = 2;
+        c.gridheight = 1;
+        c.insets = new Insets(0,20,20,0);
+        gridbag.setConstraints(input, c);
+        this.add(input);
+
+
 
         //-----------------------------
         //---------- Fonts ------------
         //-----------------------------
 
-        // Font default button
-        c.gridx = 1;
+        // Garamond button font
+        c.gridx = 5;
         c.gridy = 7;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.insets = new Insets(20,20,20,20);
-        gridbag.setConstraints(btnDefault, c);
-        this.add(btnDefault);
+        gridbag.setConstraints(btnGaramond, c);
+        this.add(btnGaramond);
 
-        // Font bold button
+        // Bold button font
         c.gridx = 2;
         c.gridy = 7;
         c.gridwidth = 1;
@@ -150,26 +152,27 @@ public class User extends JPanel {
         gridbag.setConstraints(btnBold, c);
         this.add(btnBold);
 
-        // Font David button
-        c.gridx = 5;
+        // Default button font
+        c.gridx = 1;
         c.gridy = 7;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.insets = new Insets(20,20,20,20);
-        gridbag.setConstraints(btnDavid, c);
-        this.add(btnDavid);
+        gridbag.setConstraints(btnDefault, c);
+        this.add(btnDefault);
 
     }
 
-    public ChatBox getChatBox() {
-        return chatBox;
-    }
 
     /**
      * @param args
      */
 
     public static void main(String[] args) {
+
+        //---------------------
+        //-------Users---------
+        //---------------------
         String userName1 = "Student1";
         ChatBox chatBox1 = new ChatBox(userName1);
         JFrame frame1 = new JFrame(userName1);
@@ -180,25 +183,46 @@ public class User extends JPanel {
         JFrame frame2 = new JFrame(userName2);
         Container contentPane2 = frame2.getContentPane();
 
+        String userName3 = "Student3";
+        ChatBox chatBox3 = new ChatBox(userName3);
+        JFrame frame3 = new JFrame(userName3);
+        Container contentPane3 = frame3.getContentPane();
 
 
         List<Observer> chatBoxes = new ArrayList<>();
         chatBoxes.add(chatBox1);
         chatBoxes.add(chatBox2);
+        chatBoxes.add(chatBox3);
 
 
-
-        User chat1 = new User(frame1, userName1, chatBox1, chatBoxes);
+        //---------------------
+        //-------Chats---------
+        //---------------------
+        ChatUserGui chat1 = new ChatUserGui(frame1, userName1, chatBox1, chatBoxes);
         contentPane1.add(chat1);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.pack();
         frame1.setVisible(true);
 
-        User chat2 = new User(frame2, userName2, chatBox2, chatBoxes);
+        ChatUserGui chat2 = new ChatUserGui(frame2, userName2, chatBox2, chatBoxes);
         contentPane2.add(chat2);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.pack();
         frame2.setVisible(true);
+
+        ChatUserGui chat3 = new ChatUserGui(frame3, userName3, chatBox3, chatBoxes);
+        contentPane3.add(chat3);
+        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame3.pack();
+        frame3.setVisible(true);
+
+        //-------------------------
+        //-------On screen---------
+        //-------------------------
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame1.setLocation(dim.width/2-frame1.getSize().width/2, dim.height/2-frame1.getSize().height/2);
+        frame2.setLocation(0,0);
+        frame3.setLocation(dim.width - frame3.getSize().width,0);
 
     }
 

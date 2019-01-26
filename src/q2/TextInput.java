@@ -8,80 +8,81 @@ import javax.swing.JTextField;
 
 /**
  * Abstraction function:
- * InputBox wraps a text field in which the user will be able to type his messages
+ * TextInput wraps a text field in which the user will be able to type his messages
  * which will later appear in the chat window.
  * This class wraps the text field with chat-like functionality (such as responding to enter presses)
  * and notifies the chat boxes when a new message is ready.
- * 
+ *
  * String name - the name of the User (which will be added to the messages he types)
  * List<Observer> Observers - list of chats that will observe this input box for new messages from the user
  * JTextField textField - the text field that the user will use to type his messages
  * String currentMessage - the latest message that has been written by the user.
  *                         after the chat boxes will be notified, they will ask for this value to add it to the chat window.
- *                         
+ *
  * Representation invariant:
  * all fields != null
  */
-public class InputBox implements Observable, KeyListener{
-	private	String name;
-	private List<Observer> Observers;
+public class TextInput implements Observable, KeyListener{
+	private	String userName;
+	private String currMessage;
 	private JTextField textField;
-	private String currentMessage;
-	
+	private List<Observer> Observers;
+
 	/**
 	 * @requires all params != null && name doesn't contain ':'
-	 * @param name - the name of the user
+	 * @param userName - the name of the user
 	 * @param observersToAdd - the chat boxes in the system that observe this chat
-	 * @return a new InputBox object
+	 * @return a new TextInput object
 	 */
-	public InputBox(String name, List<Observer> observersToAdd){
-		this.name = name;
-		this.Observers = new ArrayList<>(observersToAdd);
+	public TextInput(String userName, List<Observer> observersToAdd){
+		this.userName = userName;
 		this.textField = new JTextField();
-		this.currentMessage = null;
+		this.Observers = new ArrayList<>(observersToAdd);
 		this.textField.addKeyListener(this);
+		this.currMessage = null;
 		checkRep();
 	}
-	
+
 	/**
-	 * @return the name of the user of the InputBox
+	 * @return the name of the user of the TextInput
 	 */
 	public String getName(){
 		checkRep();
-		return this.name;
+		return this.userName;
 	}
-	
+
 	/**
-	 * @return the latest message entered by the user
-	 */
-	public String getCurrentMessage(){
-		checkRep();
-		return this.currentMessage;
-	}
-	
-	/**
-	 * @return the text field used by the InputBox
+	 * @return the text field used by the TextInput
 	 */
 	public JTextField getInputTextField(){
 		checkRep();
 		return this.textField;
 	}
-	
+
+	/**
+	 * @return the latest message entered by the user
+	 */
+	public String getCurrentMessage(){
+		checkRep();
+		return this.currMessage;
+	}
+
 	/**
 	 * the handler that is called when the user finishes typing a new message with an Enter.
-	 * this will get the message he wrote, clear the text field and initiate notifying the listeners 
+	 * this will get the message he wrote, clear the text field and initiate notifying the listeners
 	 * of the new message
 	 */
 	private void handleNewMessage(){
 		// get the text
 		checkRep();
-		this.currentMessage = this.textField.getText();
+		this.currMessage = this.textField.getText();
 		// clear the text field
 		this.textField.setText("");
 		// inform the observers of a new chat message
 		this.notifyObservers();
 		checkRep();
 	}
+
 
 	// KeyListener Implementation
 	/**
@@ -103,8 +104,8 @@ public class InputBox implements Observable, KeyListener{
 	public void keyReleased(KeyEvent arg0) {}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {}	
-	
+	public void keyTyped(KeyEvent arg0) {}
+
 	// Observable Implementation
 	/**
 	 * this function will notify all the observers by calling their update method
@@ -142,12 +143,13 @@ public class InputBox implements Observable, KeyListener{
 		}
 		checkRep();
 	}
-	
+
 	/**
 	 * will check the object stands in the representation invariant we dictated
 	 */
 	private void checkRep(){
-		assert this.name != null &&  this.Observers != null && this.textField != null && this.currentMessage != null;
+		assert this.userName != null && this.textField != null
+				&&  this.Observers != null  && this.currMessage != null;
 	}
-	
+
 }
