@@ -70,8 +70,9 @@ public class ChatBox implements Observer {
 	 * the messages with) and handle it accordingly
 	 * @param o - the observable that notifies us.
 	 */
+
 	@Override
-	public void update(Observable o) {
+	public void update(Observable o) { // TODO: delete this
 		checkRep();
 		// either an InputBox signaled us or a fontButton
 		// check who signaled us
@@ -91,7 +92,7 @@ public class ChatBox implements Observer {
 	 * will get the new message from the inputBox that has a new message, and add it to the chat window
 	 * @param o - the InputBox that has a new message
 	 */
-	private void handleNewMessage(InputBox o){
+	public void handleNewMessage(InputBox o){
 		checkRep();
 		// get the message
 		String message = o.getCurrentMessage();
@@ -132,7 +133,7 @@ public class ChatBox implements Observer {
 	 * will change the font of all the existing messages on the chat window according to the font requested
 	 * @param o - the listener of the font button that was pressed
 	 */
-	private void changeFont(FontButtonListener o){
+	public void changeFont(FontButtonListener o){
 		checkRep();
 		// we need to check if the font button that was pressed belongs to our user or not
 		// if it doesn't belong to our user - ignore it

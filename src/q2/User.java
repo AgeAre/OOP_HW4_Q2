@@ -30,7 +30,8 @@ public class User extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private  String userName = "Student";
+    private  String userName = "Write your message here:";
+    private  ChatBox chatBox;
 
     // Allows the editing of a single line of text
     private  JTextField input;
@@ -48,26 +49,24 @@ public class User extends JPanel {
      * Creates a new GUI JPanel for the chat. containing the chat view and the input boxes.
      * @effects Creates a new GUI JPanel contained in frame.
      */
-    public User(JFrame frame){
+    public User(JFrame frame, String userName, ChatBox myChatBox, List<Observer> chatBoxesList){ // TODO: Should I delete mine from the list?
         //init the backend
-        ChatBox chat = new ChatBox(userName);
+        this.chatBox = myChatBox;
 
         // add all observers to one list for the observer design pattern implementation
-        ArrayList<Observer> chatBoxes = new ArrayList<>();
-        chatBoxes.add(chat);
-        InputBox box = new InputBox(userName,chatBoxes);
+        InputBox box = new InputBox(userName,chatBoxesList);
 
         btnDefault  = new JButton("Default");
         btnBold     = new JButton("Bold");
         btnDavid    = new JButton("David");
 
         //FBL is short for FontButtonListener
-        FontButtonListener FBLDefault = new FontButtonListener("Default",userName,btnDefault,chatBoxes);
-        FontButtonListener FBLBold =    new FontButtonListener("Bold"   ,userName,btnBold   ,chatBoxes);
-        FontButtonListener FBLDavid =   new FontButtonListener("David"  ,userName,btnDavid  ,chatBoxes);
+        FontButtonListener FBLDefault = new FontButtonListener("Default",userName,btnDefault,chatBoxesList);
+        FontButtonListener FBLBold =    new FontButtonListener("Bold"   ,userName,btnBold   ,chatBoxesList);
+        FontButtonListener FBLDavid =   new FontButtonListener("David"  ,userName,btnDavid  ,chatBoxesList);
 
         // get the ref to the objects of the backend to show them
-        this.discussion = chat.getChatPane();
+        this.discussion = this.chatBox.getChatPane();
 
         this.input = box.getInputTextField();
 
@@ -79,7 +78,7 @@ public class User extends JPanel {
         JScrollPane scrldiscussion = new JScrollPane(discussion);
         scrldiscussion.setPreferredSize(new Dimension(400, 70));
 
-        JLabel lbldiscussion = new JLabel("Discussion: ");
+        JLabel lbldiscussion = new JLabel("Chat window: ");
         lbldiscussion.setLabelFor(discussion);
 
 
@@ -162,27 +161,45 @@ public class User extends JPanel {
 
     }
 
-
+    public ChatBox getChatBox() {
+        return chatBox;
+    }
 
     /**
      * @param args
      */
+
     public static void main(String[] args) {
-        JFrame frame1 = new JFrame("Student1");
+        String userName1 = "Student1";
+        ChatBox chatBox1 = new ChatBox(userName1);
+        JFrame frame1 = new JFrame(userName1);
         Container contentPane1 = frame1.getContentPane();
-        JPanel chat1 = new User(frame1);
+
+        String userName2 = "Student2";
+        ChatBox chatBox2 = new ChatBox(userName2);
+        JFrame frame2 = new JFrame(userName2);
+        Container contentPane2 = frame2.getContentPane();
+
+
+
+        List<Observer> chatBoxes = new ArrayList<>();
+        chatBoxes.add(chatBox1);
+        chatBoxes.add(chatBox2);
+
+
+
+        User chat1 = new User(frame1, userName1, chatBox1, chatBoxes);
         contentPane1.add(chat1);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.pack();
         frame1.setVisible(true);
 
-        JFrame frame2 = new JFrame("Student2");
-        Container contentPane2 = frame2.getContentPane();
-        JPanel chat2 = new User(frame2);
+        User chat2 = new User(frame2, userName2, chatBox2, chatBoxes);
         contentPane2.add(chat2);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.pack();
         frame2.setVisible(true);
+
     }
 
-};
+}
