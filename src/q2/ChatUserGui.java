@@ -31,7 +31,7 @@ public class ChatUserGui extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private  String userName = "Write your message here:";
-    private  ChatBox chatBox;
+    private  DiscussionWindow discussionWindow;
 
     // Allows the editing of a single line of text
     private  JTextField input;
@@ -50,9 +50,9 @@ public class ChatUserGui extends JPanel {
      * Creates a new GUI JPanel for the chat. containing the chat view and the input boxes.
      * @effects Creates a new GUI JPanel contained in frame.
      */
-    public ChatUserGui(JFrame frame, String userName, ChatBox myChatBox, List<Observer> chatBoxesList){
+    public ChatUserGui(JFrame frame, String userName, DiscussionWindow myDiscussionWindow, List<Observer> chatBoxesList){
         //init the backend
-        this.chatBox = myChatBox;
+        this.discussionWindow = myDiscussionWindow;
 
         // add all observers to one list for the observer design pattern implementation
         TextInput box = new TextInput(userName,chatBoxesList);
@@ -69,7 +69,7 @@ public class ChatUserGui extends JPanel {
 
 
         // get the ref to the objects of the backend to show them
-        this.chat = this.chatBox.getChatPane();
+        this.chat = this.discussionWindow.getChatPane();
 
         this.input = box.getInputTextField();
 
@@ -174,17 +174,17 @@ public class ChatUserGui extends JPanel {
         //-------Users---------
         //---------------------
         String userName1 = "Student1";
-        ChatBox chatBox1 = new ChatBox(userName1);
+        DiscussionWindow chatBox1 = new DiscussionWindow(userName1);
         JFrame frame1 = new JFrame(userName1);
         Container contentPane1 = frame1.getContentPane();
 
         String userName2 = "Student2";
-        ChatBox chatBox2 = new ChatBox(userName2);
+        DiscussionWindow chatBox2 = new DiscussionWindow(userName2);
         JFrame frame2 = new JFrame(userName2);
         Container contentPane2 = frame2.getContentPane();
 
         String userName3 = "Student3";
-        ChatBox chatBox3 = new ChatBox(userName3);
+        DiscussionWindow chatBox3 = new DiscussionWindow(userName3);
         JFrame frame3 = new JFrame(userName3);
         Container contentPane3 = frame3.getContentPane();
 
